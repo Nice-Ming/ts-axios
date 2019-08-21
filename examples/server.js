@@ -14,20 +14,29 @@ const path = require('path')
 const app = express()
 const complier = webpack(WebpackConfig)
 
-app.use(webpackDevMiddleware(complier, {
-  publicPath: '/__build__/',
-  stats: {
-    colors: true,
-    chunks: false
-  }
-}))
+app.use(
+  webpackDevMiddleware(complier, {
+    publicPath: '/__build__/',
+    stats: {
+      colors: true,
+      chunks: false
+    }
+  })
+)
 
 app.use(webpackHotMiddleware(complier))
-app.use(express.static(__dirname, {
-  setHeaders(res) {
-    res.cookie('XSRF-TOKEN-D', Math.random().toString(16).slice(2))
-  }
-}))
+app.use(
+  express.static(__dirname, {
+    setHeaders(res) {
+      res.cookie(
+        'XSRF-TOKEN-D',
+        Math.random()
+          .toString(16)
+          .slice(2)
+      )
+    }
+  })
+)
 
 app.use(express.static(__dirname))
 
@@ -36,9 +45,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 // 用于将文件上传到指定文件
-app.use(mutipart({
-  uploadDir: path.resolve(__dirname, 'accept-upload-file')
-}))
+app.use(
+  mutipart({
+    uploadDir: path.resolve(__dirname, 'accept-upload-file')
+  })
+)
 
 const router = express.Router()
 
@@ -76,7 +87,6 @@ function registerSimpleRouter() {
 }
 
 function registerBaseRouter() {
-
   router.get('/base/get', function (req, res) {
     res.json(req.query)
   })
@@ -198,7 +208,9 @@ function registerMoreRouter() {
     const auth = req.headers.authorization
     const [type, credentials] = auth.split(' ')
     console.log('atob on server:', atob(credentials))
-    const [username, password] = atob(credentials).split(':').map(item => item.trim())
+    const [username, password] = atob(credentials)
+      .split(':')
+      .map(item => item.trim())
     if (type === 'Basic' && username === 'chen' && password === '123456') {
       res.json(req.body)
     } else {

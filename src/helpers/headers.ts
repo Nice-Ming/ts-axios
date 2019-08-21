@@ -1,6 +1,6 @@
 import { isPlainObject } from './util'
 
-function normalizeHeaderName(headers: any, normalizeName: string): void {
+function normalizeHeaderName (headers: any, normalizeName: string): void {
   if (!headers) {
     return
   }
@@ -13,7 +13,7 @@ function normalizeHeaderName(headers: any, normalizeName: string): void {
   })
 }
 
-export function processHeaders(headers: any, data: any): any {
+export function processHeaders (headers: any, data: any): any {
   normalizeHeaderName(headers, 'Content-Type')
 
   if (isPlainObject(data)) {
@@ -25,7 +25,7 @@ export function processHeaders(headers: any, data: any): any {
   return headers
 }
 
-export function parseHeaders(headers: string): any {
+export function parseHeaders (headers: string): any {
   const parsed = Object.create(null)
 
   if (!headers) {

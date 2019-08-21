@@ -2,7 +2,7 @@ import Axios from './core/Axios'
 import { AxiosInstance } from './types'
 import { extend } from './helpers/util'
 
-function createAxiosInstance(): AxiosInstance {
+function createAxiosInstance (): AxiosInstance {
   const context = new Axios()
   const instance = Axios.prototype.request.bind(context)
 

@@ -2,7 +2,7 @@ import { AxiosRequestConfig, AxiosResponse, AxiosPromise } from '../types'
 import { parseHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
 
-export default function xhr(config: AxiosRequestConfig): AxiosPromise {
+export default function xhr (config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
     const { url, headers, method = 'get', data = null, responseType, timeout } = config
     const request = new XMLHttpRequest()
@@ -14,7 +14,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     // TODO
     request.open(method.toUpperCase(), url!, true)
 
-    request.onreadystatechange = function handleLoad() {
+    request.onreadystatechange = function handleLoad () {
       if (request.readyState !== 4) {
         return
       }
@@ -44,18 +44,18 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
 
     // 处理请求超时错误
-    request.ontimeout = function handleTimeout() {
+    request.ontimeout = function handleTimeout () {
       reject(
         createError(`Timeout of ${config.timeout} ms exceeded`, config, 'ECONNABORTED', request)
       )
     }
 
     // 处理网络异常错误
-    request.onerror = function handleError() {
+    request.onerror = function handleError () {
       reject(createError('Network Error', config, null, request))
     }
 
-    function handleResponse(response: AxiosResponse) {
+    function handleResponse (response: AxiosResponse) {
       if (response.status >= 200 && response.status < 300) {
         resolve(response)
       } else {

@@ -4,35 +4,35 @@ import { buildURL } from '../helpers/url'
 import { transformRequest, transformResponse } from '../helpers/data'
 import { processHeaders } from '../helpers/headers'
 
-export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+export default function dispatchRequest (config: AxiosRequestConfig): AxiosPromise {
   processConfig(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
   })
 }
 
-function processConfig(config: AxiosRequestConfig): void {
+function processConfig (config: AxiosRequestConfig): void {
   config.url = transformURL(config)
   config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
 }
 
-function transformURL(config: AxiosRequestConfig): string {
+function transformURL (config: AxiosRequestConfig): string {
   const { url, params } = config
   // TODO
   return buildURL(url!, params)
 }
 
-function transformHeaders(config: AxiosRequestConfig): any {
+function transformHeaders (config: AxiosRequestConfig): any {
   const { headers = {}, data } = config
   return processHeaders(headers, data)
 }
 
-function transformRequestData(config: AxiosRequestConfig): any {
+function transformRequestData (config: AxiosRequestConfig): any {
   return transformRequest(config.data)
 }
 
-function transformResponseData(res: AxiosResponse): AxiosResponse {
+function transformResponseData (res: AxiosResponse): AxiosResponse {
   res.data = transformResponse(res.data)
   return res
 }
