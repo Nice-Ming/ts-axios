@@ -21,15 +21,15 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.ts$/,
-        enforce: 'pre',
-        use: [
-          {
-            loader: 'tslint-loader'
-          }
-        ]
-      },
+      // {
+      //   test: /\.ts$/,
+      //   enforce: 'pre',
+      //   use: [
+      //     {
+      //       loader: 'tslint-loader'
+      //     }
+      //   ]
+      // },
       {
         test: /.tsx?$/,
         use: [
