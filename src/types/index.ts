@@ -43,6 +43,7 @@ export interface AxiosRequestConfig {
   params?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  [propName: string]: any
 }
 
 export interface AxiosResponse<T = any> {
@@ -69,7 +70,7 @@ export interface AxiosInterceptorManager<T> {
   eject (id: number): void
 }
 
-export interface ResolvedFn<T> {
+export interface ResolvedFn<T = any> {
   (val: T): T | Promise<T>
 }
 
