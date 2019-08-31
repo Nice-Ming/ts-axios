@@ -26,8 +26,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 		if (responseType) {
 			request.responseType = responseType
 		}
-
-		// TODO
+		// 运行时url是有值的 断言url不为空
 		request.open(method.toUpperCase(), url!, true)
 
 		request.onreadystatechange = function handleLoad() {

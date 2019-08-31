@@ -6,7 +6,7 @@ import { processHeaders, flattenHeaders } from '../helpers/headers'
 
 function transformURL(config: AxiosRequestConfig): string {
 	const { url, params } = config
-	// TODO
+	// 运行时url是有值的 断言url不为空
 	return buildURL(url!, params)
 }
 

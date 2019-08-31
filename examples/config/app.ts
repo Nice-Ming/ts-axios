@@ -1,6 +1,33 @@
 import axios, { AxiosTransformer } from '../../src'
 import qs from 'qs'
 
+import mergeConfig from '../../src/core/mergeConfig'
+
+const config1 = {
+  method: 'get',
+
+  timeout: 0,
+
+  headers: {
+    common: {
+      Accept: 'application/json, text/plain, */*'
+    }
+  }
+}
+
+const config2 = {
+  url: '/config/post',
+  method: 'post',
+  data: {
+    a: 1
+  },
+  headers: {
+    test: '321'
+  }
+}
+
+mergeConfig(config1, config2)
+
 axios.defaults.headers.common['test2'] = 123
 
 axios({
