@@ -1,8 +1,6 @@
 import axios, { AxiosTransformer } from '../../src'
 import qs from 'qs'
 
-import mergeConfig from '../../src/core/mergeConfig'
-
 const config1 = {
   method: 'get',
 
@@ -26,8 +24,6 @@ const config2 = {
   }
 }
 
-mergeConfig(config1, config2)
-
 axios.defaults.headers.common['test2'] = 123
 
 axios({
@@ -42,30 +38,30 @@ axios({
 })
 
 // 请求和响应配置化 demo
-// axios({
-//   transformRequest: [
-//     (function (data) {
-//       return qs.stringify(data)
-//     }),
-//     ...(axios.defaults.transformRequest as AxiosTransformer[])
-//   ],
-//   transformResponse: [
-//     ...(axios.defaults.transformResponse as AxiosTransformer[]),
-//     function (data) {
-//       if (typeof data === 'object') {
-//         data.b = 'transform respone mark'
-//       }
-//       return data
-//     }
-//   ],
-//   url: '/config/post',
-//   method: 'post',
-//   data: {
-//     a: 1
-//   }
-// }).then(res => {
-//   console.log(res.data)
-// })
+axios({
+  transformRequest: [
+    (function (data) {
+      return qs.stringify(data)
+    }),
+    ...(axios.defaults.transformRequest as AxiosTransformer[])
+  ],
+  transformResponse: [
+    ...(axios.defaults.transformResponse as AxiosTransformer[]),
+    function (data) {
+      if (typeof data === 'object') {
+        data.b = 'transform respone mark'
+      }
+      return data
+    }
+  ],
+  url: '/config/post',
+  method: 'post',
+  data: {
+    a: 2
+  }
+}).then(res => {
+  console.log(res.data)
+})
 
 // // axios.create demo
 // const instance = axios.create({
