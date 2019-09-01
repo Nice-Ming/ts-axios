@@ -1,29 +1,6 @@
 import axios, { AxiosTransformer } from '../../src'
 import qs from 'qs'
 
-const config1 = {
-  method: 'get',
-
-  timeout: 0,
-
-  headers: {
-    common: {
-      Accept: 'application/json, text/plain, */*'
-    }
-  }
-}
-
-const config2 = {
-  url: '/config/post',
-  method: 'post',
-  data: {
-    a: 1
-  },
-  headers: {
-    test: '321'
-  }
-}
-
 axios.defaults.headers.common['test2'] = 123
 
 axios({
@@ -63,29 +40,29 @@ axios({
   console.log(res.data)
 })
 
-// // axios.create demo
-// const instance = axios.create({
-//   transformRequest: [
-//     (function (data) {
-//       return qs.stringify(data)
-//     }),
-//     ...(axios.defaults.transformRequest as AxiosTransformer[])
-//   ],
-//   transformResponse: [
-//     ...(axios.defaults.transformResponse as AxiosTransformer[]),
-//     function (data) {
-//       if (typeof data === 'object') {
-//         data.b = 'new instance transform respone mark'
-//       }
-//       return data
-//     }
-//   ]
-// })
+// axios.create demo
+const instance = axios.create({
+  transformRequest: [
+    (function (data) {
+      return qs.stringify(data)
+    }),
+    ...(axios.defaults.transformRequest as AxiosTransformer[])
+  ],
+  transformResponse: [
+    ...(axios.defaults.transformResponse as AxiosTransformer[]),
+    function (data) {
+      if (typeof data === 'object') {
+        data.b = 'new instance transform respone mark'
+      }
+      return data
+    }
+  ]
+})
 
-// instance({
-//   url: '/config/post',
-//   method: 'post',
-//   data: {
-//     a: 1
-//   }
-// }).then(res => console.log(res.data))
+instance({
+  url: '/config/post',
+  method: 'post',
+  data: {
+    a: 3
+  }
+}).then(res => console.log(res.data))
