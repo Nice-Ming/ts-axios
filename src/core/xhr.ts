@@ -4,7 +4,7 @@ import { createError } from '../helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 	return new Promise((resolve, reject) => {
-		const { url, headers, method = 'get', data = null, responseType, timeout } = config
+		const { url, headers, method = 'get', data = null, responseType, timeout, cancelToken } = config
 		const request = new XMLHttpRequest()
 
 		function handleResponse(response: AxiosResponse) {
@@ -26,6 +26,18 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 		if (responseType) {
 			request.responseType = responseType
 		}
+
+		if (timeout) {
+			request.timeout = timeout
+		}
+
+		if (cancelToken) {
+			cancelToken.promise.then(reason => {
+				request.abort()
+				reject(reason)
+			})
+		}
+
 		// 运行时url是有值的 断言url不为空
 		request.open(method.toUpperCase(), url!, true)
 
@@ -52,10 +64,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 			}
 
 			handleResponse(response)
-		}
-
-		if (timeout) {
-			request.timeout = timeout
 		}
 
 		// 处理请求超时错误
