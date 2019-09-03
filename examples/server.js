@@ -9,7 +9,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
 const path = require('path')
 
-// require('./server2')
+require('./server-cors')
 
 const app = express()
 const complier = webpack(WebpackConfig)
@@ -25,18 +25,18 @@ app.use(
 )
 
 app.use(webpackHotMiddleware(complier))
-app.use(
-  express.static(__dirname, {
-    setHeaders(res) {
-      res.cookie(
-        'XSRF-TOKEN-D',
-        Math.random()
-          .toString(16)
-          .slice(2)
-      )
-    }
-  })
-)
+// app.use(
+//   express.static(__dirname, {
+//     setHeaders(res) {
+//       res.cookie(
+//         'XSRF-TOKEN-D',
+//         Math.random()
+//           .toString(16)
+//           .slice(2)
+//       )
+//     }
+//   })
+// )
 
 app.use(express.static(__dirname))
 
