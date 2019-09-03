@@ -25,18 +25,18 @@ app.use(
 )
 
 app.use(webpackHotMiddleware(complier))
-// app.use(
-//   express.static(__dirname, {
-//     setHeaders(res) {
-//       res.cookie(
-//         'XSRF-TOKEN-D',
-//         Math.random()
-//           .toString(16)
-//           .slice(2)
-//       )
-//     }
-//   })
-// )
+app.use(
+  express.static(__dirname, {
+    setHeaders(res) {
+      res.cookie(
+        'XSRF-TOKEN-D',
+        Math.random()
+          .toString(16)
+          .slice(2)
+      )
+    }
+  })
+)
 
 app.use(express.static(__dirname))
 

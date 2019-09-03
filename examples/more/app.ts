@@ -14,14 +14,14 @@ axios.post('http://127.0.0.1:9090/more/server2', {}, {
 })
 
 // xsrf demo
-// const instance = axios.create({
-//   xsrfCookieName: 'XSRF-TOKEN-D',
-//   xsrfHeaderName: 'X-XSRF-TOKEN-D'
-// })
+const instance = axios.create({
+  xsrfCookieName: 'XSRF-TOKEN-D',
+  xsrfHeaderName: 'X-XSRF-TOKEN-D'
+})
 
-// instance.get('/more/get').then(res => {
-//   console.log('csrf demo:', res)
-// })
+instance.get('/more/get').then(res => {
+  console.log('csrf demo:', res)
+})
 
 // // http auth demo
 // axios.post('/more/post', {
