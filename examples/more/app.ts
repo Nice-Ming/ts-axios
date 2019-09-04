@@ -49,22 +49,22 @@ axios.post('/more/post', {
 })
 
 // // 自定义合法状态码 demo
-// axios.get('/more/304').then(res => {
-//   console.log(res)
-// }).catch(err => {
-//   console.log(err.message)
-// })
+axios.get('/more/304').then(res => {
+  console.log(res)
+}).catch(err => {
+  console.log('默认状态码', err.message)
+})
 
 
-// axios.get('/more/304', {
-//   validateStatus(status) {
-//     return status >= 200 && status < 400
-//   }
-// }).then(res => {
-//   console.log(res)
-// }).catch(err => {
-//   console.log(err.message)
-// })
+axios.get('/more/304', {
+  validateStatus(status) {
+    return status >= 200 && status < 400
+  }
+}).then(res => {
+  console.log('自定义状态码', res)
+}).catch(err => {
+  console.log('自定义状态码', err.message)
+})
 
 // // 自定义 params 的解析规则 demo
 // axios.get('/more/get', {
