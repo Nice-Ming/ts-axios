@@ -231,6 +231,10 @@ function registerMoreRouter() {
   router.get('/more/B', function (req, res) {
     res.end('B')
   })
+
+  router.get('/more/C', function (req, res) {
+    res.end('C')
+  })
 }
 
 function registerUploadRouter() {

@@ -109,34 +109,38 @@ instance3.get('https://img.mukewang.com/szimg/5becd5ad0001b89306000338-360-202.j
 instance3.get('//img.mukewang.com/szimg/5becd5ad0001b89306000338-360-202.jpg')
 
 
-// // axios.all axios.spread axios.getUri demo
-// function getA() {
-//   return axios.get('/more/A')
-// }
-// function getB() {
-//   return axios.get('/more/B')
-// }
+// axios.all axios.spread axios.getUri demo
+function getA() {
+  return axios.get('/more/A')
+}
+function getB() {
+  return axios.get('/more/B')
+}
+function getC() {
+  return axios.get('/more/C')
+}
 
-// axios.all([getA(), getB()])
-//   .then(axios.spread(function(resA, resB) {
-//     console.log(resA.data)
-//     console.log(resB.data)
-//   }))
+axios.all([getA(), getB(), getC()])
+  .then(axios.spread(function(resA, resB, resC) {
+    console.log('spread', resA.data)
+    console.log('spread', resB.data)
+    console.log('spread', resC.data)
+  }))
 
-// axios.all([getA(), getB()])
-//   .then(([resA, resB]) => {
-//     console.log(resA.data)
-//     console.log(resB.data)
-//   })
+axios.all([getA(), getB()])
+  .then(([resA, resB]) => {
+    console.log(resA.data)
+    console.log(resB.data)
+  })
 
-// const fakeConfig = {
-//   baseURL: 'https://www.baidu.com',
-//   url: '/user/12345',
-//   params: {
-//     idClient: 1,
-//     idTest: 2,
-//     testString: 'thisIsATest'
-//   }
-// }
+const fakeConfig = {
+  baseURL: 'https://www.baidu.com',
+  url: '/user/12345',
+  params: {
+    idClient: 1,
+    idTest: 2,
+    testString: 'thisIsATest'
+  }
+}
 
-// console.log('axios.getUri result: ', axios.getUri(fakeConfig))
+console.log('axios.getUri result: ', axios.getUri(fakeConfig))

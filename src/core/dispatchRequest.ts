@@ -5,7 +5,7 @@ import { flattenHeaders } from '../helpers/headers'
 import { transform } from '../core/transform'
 import { isAbsoluteURL, combineURL } from '../helpers/util'
 
-function transformURL(config: AxiosRequestConfig): string {
+export function transformURL(config: AxiosRequestConfig): string {
 	let { url } = config
 	const { baseURL, params, paramsSerializer } = config
 

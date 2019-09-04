@@ -29,6 +29,7 @@ export interface Axios {
 	post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 	put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 	patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+	getUri(config?: AxiosRequestConfig): string
 }
 
 export interface AxiosInstance extends Axios {
@@ -37,11 +38,18 @@ export interface AxiosInstance extends Axios {
 	<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
-export interface AxiosStatic extends AxiosInstance {
-	create(config?: AxiosRequestConfig): AxiosInstance
+export interface AxiosClassStatic {
+	new (config: AxiosRequestConfig): Axios
+}
 
+export interface AxiosStatic extends AxiosInstance {
+	Axios: AxiosClassStatic
 	CancelToken: CancelTokenStatic
 	Cancel: CancelStatic
+
+	create(config?: AxiosRequestConfig): AxiosInstance
+	all<T>(promises: Array<T | Promise<T>>): Promise<T[]>
+	spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
 	isCancel: (value: any) => boolean
 }
 
