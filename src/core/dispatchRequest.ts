@@ -5,9 +5,9 @@ import { flattenHeaders } from '../helpers/headers'
 import { transform } from '../core/transform'
 
 function transformURL(config: AxiosRequestConfig): string {
-	const { url, params } = config
+	const { url, params, paramsSerializer } = config
 	// 运行时url是有值的 断言url不为空
-	return buildURL(url!, params)
+	return buildURL(url!, params, paramsSerializer)
 }
 
 function transformResponseData(res: AxiosResponse): AxiosResponse {

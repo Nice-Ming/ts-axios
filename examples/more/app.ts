@@ -23,7 +23,7 @@ instance.get('/more/get').then(res => {
   console.log('csrf demo:', res)
 })
 
-// // http auth demo
+// http auth demo
 axios.post('/more/post', {
   a: 1
 }, {
@@ -48,7 +48,7 @@ axios.post('/more/post', {
   console.log('http auth fail demo', err)
 })
 
-// // 自定义合法状态码 demo
+// 自定义合法状态码 demo
 axios.get('/more/304').then(res => {
   console.log(res)
 }).catch(err => {
@@ -66,40 +66,38 @@ axios.get('/more/304', {
   console.log('自定义状态码', err.message)
 })
 
-// // 自定义 params 的解析规则 demo
-// axios.get('/more/get', {
-//   params: new URLSearchParams('a=b&c=d')
-// }).then(res => {
-//   console.log(res)
-// })
+// 自定义 params 的解析规则 demo
+axios.get('/more/get', {
+  params: new URLSearchParams('a=b&c=d')
+}).then(res => {
+  console.log(res)
+})
 
-// axios.get('/more/get', {
-//   params: {
-//     a: 1,
-//     b: 2,
-//     c: ['a', 'b', 'c']
-//   }
-// }).then(res => {
-//   console.log(res)
-// })
+axios.get('/more/get', {
+  params: {
+    a: 1,
+    b: 2,
+    c: ['a', 'b', 'c']
+  }
+}).then(res => {
+  console.log(res)
+})
 
-// const instance2 = axios.create({
-//   paramsSerializer(params) {
-//     return qs.stringify(params, {
-//       arrayFormat: 'brackets'
-//     })
-//   }
-// })
+const instance2 = axios.create({
+  paramsSerializer(params) {
+    return qs.stringify(params, { arrayFormat: 'brackets' })
+  }
+})
 
-// instance2.get('/more/get', {
-//   params: {
-//     a: 1,
-//     b: 2,
-//     c: ['a', 'b', 'c']
-//   }
-// }).then(res => {
-//   console.log(res)
-// })
+instance2.get('/more/get', {
+  params: {
+    a: 1,
+    b: 2,
+    c: ['a', 'b', 'c']
+  }
+}).then(res => {
+  console.log(res)
+})
 
 // // custom baseURL demo
 // const instance3 = axios.create({
