@@ -46,6 +46,7 @@ export interface AxiosStatic extends AxiosInstance {
 }
 
 export interface AxiosRequestConfig {
+	baseURL?: string
 	url?: string
 	headers?: any
 	method?: Method

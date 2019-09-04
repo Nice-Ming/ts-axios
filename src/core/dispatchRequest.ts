@@ -3,9 +3,16 @@ import xhr from './xhr'
 import { buildURL } from '../helpers/url'
 import { flattenHeaders } from '../helpers/headers'
 import { transform } from '../core/transform'
+import { isAbsoluteURL, combineURL } from '../helpers/util'
 
 function transformURL(config: AxiosRequestConfig): string {
-	const { url, params, paramsSerializer } = config
+	let { url } = config
+	const { baseURL, params, paramsSerializer } = config
+
+	if (baseURL && !isAbsoluteURL(url!)) {
+		url = combineURL(baseURL, url)
+	}
+
 	// 运行时url是有值的 断言url不为空
 	return buildURL(url!, params, paramsSerializer)
 }

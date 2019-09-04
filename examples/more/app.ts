@@ -99,13 +99,14 @@ instance2.get('/more/get', {
   console.log(res)
 })
 
-// // custom baseURL demo
-// const instance3 = axios.create({
-//   baseURL: 'https://img.mukewang.com/'
-// })
+// custom baseURL demo
+const instance3 = axios.create({
+  baseURL: 'https://img.mukewang.com/'
+})
 
-// instance3.get('5cc01a7b0001a33718720632.gif')
-// instance3.get('https://img.mukewang.com/szimg/5becd5ad0001b89306000338-360-202.jpg')
+instance3.get('5cc01a7b0001a33718720632.gif')
+instance3.get('https://img.mukewang.com/szimg/5becd5ad0001b89306000338-360-202.jpg')
+instance3.get('//img.mukewang.com/szimg/5becd5ad0001b89306000338-360-202.jpg')
 
 
 // // axios.all axios.spread axios.getUri demo
