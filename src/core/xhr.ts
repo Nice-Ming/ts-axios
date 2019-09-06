@@ -26,6 +26,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 		} = config
 
 		function handleResponse(response: AxiosResponse) {
+			// 校验状态码
 			if (!validateStatus || validateStatus(response.status)) {
 				resolve(response)
 			} else {
@@ -78,6 +79,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 					request,
 				}
 
+				// 处理响应结果
 				handleResponse(response)
 			}
 
@@ -103,14 +105,17 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 		}
 
 		function processHeaders(): void {
+			// 添加 HTTP 身份验证
 			if (auth) {
 				headers['Authorization'] = 'Basic ' + window.btoa(auth.username + ':' + auth.password)
 			}
 
+			// FormData数据格式 浏览器会自己设置Content-Type
 			if (isFormData(data)) {
 				delete headers['Content-Type']
 			}
 
+			// 携带cookie时 添加xsrf防御
 			if ((withCredentials || isURLSameOrigin(url!)) && xsrfCookieName) {
 				const xsrfValue = cookie.read(xsrfCookieName)
 
@@ -119,6 +124,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 				}
 			}
 
+			// 当请求数据为空 移除Content-Type
 			Object.keys(headers).forEach(name => {
 				if (data === null && name.toLowerCase() === 'content-type') {
 					delete headers[name]
@@ -136,6 +142,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 				})
 			}
 		}
+
 		// 运行时url是有值的 断言url不为空
 		request.open(method.toUpperCase(), url!, true)
 
