@@ -35,17 +35,14 @@ export function parseHeaders(headers: string): any {
 
 	headers.split('\r\n').forEach(line => {
 		// eslint-disable-next-line
-		let [key, val] = line.split(':')
+		let [key, ...vals] = line.split(':') // 字符串可能存在多个 ":" 的情况
+		key = key.toLocaleLowerCase().trim()
 
 		if (!key) {
 			return
 		}
 
-		if (val) {
-			val = val.trim()
-		}
-
-		parsed[key] = val
+		parsed[key] = vals.join(':').trim()
 	})
 
 	return parsed
