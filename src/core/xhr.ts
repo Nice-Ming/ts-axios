@@ -10,8 +10,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 		const request = new XMLHttpRequest()
 		const {
 			url,
-			headers,
-			method = 'get',
+			headers = {},
+			method,
 			data = null,
 			responseType,
 			timeout,
@@ -144,7 +144,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 		}
 
 		// 运行时url是有值的 断言url不为空
-		request.open(method.toUpperCase(), url!, true)
+		request.open(method!.toUpperCase(), url!, true)
 
 		// 配置 request 对象
 		configureRequest()

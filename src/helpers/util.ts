@@ -1,9 +1,5 @@
 const toString = Object.prototype.toString
 
-export function isObject(val: any): val is Record<string, any> {
-	return val !== null && typeof val === 'object'
-}
-
 export function isPlainObject(val: any): val is Record<string, any> {
 	return toString.call(val) === '[object Object]'
 }
