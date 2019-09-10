@@ -1,7 +1,7 @@
 import { createError } from '../../src/helpers/error'
 import { AxiosRequestConfig, AxiosResponse } from '../../src/types'
 
-describe('helpers:error', () => {
+describe('helpers::error', function() {
 	test('should create an Error with message, config, code, request, response and isAxiosError', () => {
 		const request = new XMLHttpRequest()
 		const config: AxiosRequestConfig = { method: 'post' }
@@ -19,6 +19,7 @@ describe('helpers:error', () => {
 		expect(error.config).toBe(config)
 		expect(error.code).toBe('SOMETHING')
 		expect(error.request).toBe(request)
+		expect(error.response).toBe(response)
 		expect(error.isAxiosError).toBeTruthy()
 	})
 })

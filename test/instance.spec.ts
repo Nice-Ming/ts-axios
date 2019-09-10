@@ -132,8 +132,8 @@ describe('instance', () => {
 			})
 
 			setTimeout(() => {
-				expect(response.config.timeout).toBe(0)
-				expect(response.config.withCredentials).toBeTruthy()
+				expect(response.config.timeout).toEqual(0)
+				expect(response.config.withCredentials).toEqual(true)
 				done()
 			}, 100)
 		})

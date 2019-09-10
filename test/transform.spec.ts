@@ -88,7 +88,7 @@ describe('transform', () => {
 		})
 
 		return getAjaxRequest().then(request => {
-			expect(request.requestHeaders['X-Authorization']).toBe(token)
+			expect(request.requestHeaders['X-Authorization']).toEqual(token)
 		})
 	})
 })

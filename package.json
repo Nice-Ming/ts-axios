@@ -35,7 +35,7 @@
     "precommit": "lint-staged",
     "travis-deploy-once": "travis-deploy-once",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
-    "format": "eslint --fix 'src/**/*.{js,ts,tsx}'"
+    "format": "eslint --fix 'test/**/*.{js,ts,tsx}'"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -65,15 +65,11 @@
       ".(ts|tsx)": "ts-jest"
     },
     "testEnvironment": "jsdom",
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testRegex": "/test/.*\\.(test|spec)\\.(ts)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
       "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
     ],
     "coverageThreshold": {
       "global": {

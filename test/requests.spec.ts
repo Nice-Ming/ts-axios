@@ -19,22 +19,23 @@ describe('requests', () => {
 		})
 	})
 
-	test('should treat method value as lowercase string', () => {
+	test('should treat method value as lowercase string', done => {
 		axios({
 			url: '/foo',
 			method: 'POST',
 		}).then(response => {
 			expect(response.config.method).toBe('post')
+			done()
 		})
 
-		return getAjaxRequest().then(request => {
+		getAjaxRequest().then(request => {
 			request.respondWith({
 				status: 200,
 			})
 		})
 	})
 
-	test('should reject on network errors', () => {
+	test('should reject on network errors', done => {
 		const resolveSpy = jest.fn((res: AxiosResponse) => {
 			return res
 		})
@@ -45,7 +46,7 @@ describe('requests', () => {
 
 		jasmine.Ajax.uninstall()
 
-		return axios('/foo')
+		axios('/foo')
 			.then(resolveSpy)
 			.catch(rejectSpy)
 			.then(next)
@@ -58,6 +59,8 @@ describe('requests', () => {
 			expect(reason.request).toEqual(expect.any(XMLHttpRequest))
 
 			jasmine.Ajax.install()
+
+			done()
 		}
 	})
 
@@ -83,7 +86,7 @@ describe('requests', () => {
 		})
 	})
 
-	test('should reject when validateStatus returns false', () => {
+	test('should reject when validateStatus returns false', done => {
 		const resolveSpy = jest.fn((res: AxiosResponse) => {
 			return res
 		})
@@ -101,7 +104,7 @@ describe('requests', () => {
 			.catch(rejectSpy)
 			.then(next)
 
-		return getAjaxRequest().then(request => {
+		getAjaxRequest().then(request => {
 			request.respondWith({
 				status: 500,
 			})
@@ -113,10 +116,12 @@ describe('requests', () => {
 			expect(reason instanceof Error).toBeTruthy()
 			expect((reason as AxiosError).message).toBe('Request failed with status code 500')
 			expect((reason as AxiosError).response!.status).toBe(500)
+
+			done()
 		}
 	})
 
-	test('should resolve when validateStatus returns true', () => {
+	test('should resolve when validateStatus returns true', done => {
 		const resolveSpy = jest.fn((res: AxiosResponse) => {
 			return res
 		})
@@ -134,7 +139,7 @@ describe('requests', () => {
 			.catch(rejectSpy)
 			.then(next)
 
-		return getAjaxRequest().then(request => {
+		getAjaxRequest().then(request => {
 			request.respondWith({
 				status: 500,
 			})
@@ -144,6 +149,8 @@ describe('requests', () => {
 			expect(resolveSpy).toHaveBeenCalled()
 			expect(rejectSpy).not.toHaveBeenCalled()
 			expect(res.config.url).toBe('/foo')
+
+			done()
 		}
 	})
 
@@ -167,11 +174,11 @@ describe('requests', () => {
 			request.respondWith({
 				status: 200,
 				statusText: 'OK',
-				responseText: '{"errno": 0}',
+				responseText: '{"a": 1}',
 			})
 
 			setTimeout(() => {
-				expect(response.data).toEqual({ errno: 0 })
+				expect(response.data).toEqual({ a: 1 })
 				done()
 			}, 100)
 		})

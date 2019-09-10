@@ -2,7 +2,7 @@ import CancelToken from '../../src/cancel/CancelToken'
 import Cancel from '../../src/cancel/Cancel'
 import { Canceler } from '../../src/types'
 
-describe('cancel:CancelToken', () => {
+describe('CancelToken', () => {
 	describe('reason', () => {
 		test('should returns a Cancel if cancellation has been requested', () => {
 			let cancel: Canceler

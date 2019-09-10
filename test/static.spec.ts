@@ -1,6 +1,6 @@
 import axios from '../src/index'
 
-describe('static', () => {
+describe('promise', () => {
 	test('should support all', done => {
 		let fulfilled = false
 
